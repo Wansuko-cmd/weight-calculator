@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import com.wsr.weightcalculator.view.main.route.index.MainIndex
+import com.wsr.weightcalculator.view.main.route.MainRoute
 import com.wsr.weightcalculator.view.ui.theme.WeightCalculatorTheme
 
 class MainActivity : ComponentActivity() {
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
             WeightCalculatorTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    MainIndex()
+                    MainRoute()
                 }
             }
         }
