@@ -7,8 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
-import com.wsr.weightcalculator.view.ui.main.route.contents.MainContents
-import com.wsr.weightcalculator.view.ui.main.route.contents.MainContentsArguments
+import com.wsr.weightcalculator.view.ui.main.route.content.MainContent
 import com.wsr.weightcalculator.view.ui.main.route.index.MainIndex
 
 @Composable
@@ -41,8 +40,8 @@ fun MainNavHost(
             )
         ){  backStackEntry ->
 
-            backStackEntry.arguments?.getInt(MainContentsArguments.TITLE_ID)?.let{ titleId ->
-                MainContents(titleId = titleId)
+            backStackEntry.arguments?.getInt("titleId")?.let{ titleId ->
+                MainContent(titleId = titleId)
             }
         }
     }
