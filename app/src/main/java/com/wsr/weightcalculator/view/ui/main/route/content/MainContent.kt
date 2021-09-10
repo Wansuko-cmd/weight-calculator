@@ -9,11 +9,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun MainContent(titleId: Int){
-    Scaffold(
-        topBar = { MainContentTopBar() }
-    ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)) {
-            Text(text = "MainContents #$titleId")
-        }
+    Column(modifier = Modifier) {
+        Text(text = "MainContents #$titleId")
     }
 }

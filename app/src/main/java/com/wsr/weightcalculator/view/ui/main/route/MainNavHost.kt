@@ -53,8 +53,3 @@ private fun navigateToContent(
 ){
     navController.navigate("${MainDestination.CONTENT.name}/$titleId")
 }
-
-enum class MainDestination{
-    INDEX,
-    CONTENT,
-}
