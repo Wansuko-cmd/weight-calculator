@@ -1,4 +1,4 @@
-package com.wsr.weightcalculator.domain.entity
+package com.wsr.weightcalculator.entity
 
 data class Title(
     val id: Int,
