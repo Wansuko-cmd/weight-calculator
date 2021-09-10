@@ -4,13 +4,13 @@ import java.lang.IllegalArgumentException
 
 enum class MainDestination{
     INDEX,
-    CONTENT;
+    SHOW;
 
     companion object{
         fun fromRoute(route: String?): MainDestination =
             when(route?.substringBefore("/")){
                 INDEX.name -> INDEX
-                CONTENT.name -> CONTENT
+                SHOW.name -> SHOW
                 null -> INDEX
                 else -> throw IllegalArgumentException("Route $route is not recognized.")
             }

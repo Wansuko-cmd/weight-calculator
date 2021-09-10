@@ -1,12 +1,8 @@
 package com.wsr.weightcalculator.entity
 
-data class Contents(
+data class Item(
     val id: Int,
     val titleId: Int,
-    val items: List<Item>
-)
-
-data class Item(
     val name: String,
     val number: Int
 )

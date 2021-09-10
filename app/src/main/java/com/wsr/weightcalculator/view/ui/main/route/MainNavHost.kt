@@ -7,8 +7,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
-import com.wsr.weightcalculator.view.ui.main.route.content.MainContent
 import com.wsr.weightcalculator.view.ui.main.route.index.MainIndex
+import com.wsr.weightcalculator.view.ui.main.route.show.MainShow
 
 @Composable
 fun MainNavHost(
@@ -32,7 +32,7 @@ fun MainNavHost(
 
         //Content
         composable(
-            route = "${MainDestination.CONTENT.name}/{titleId}",
+            route = "${MainDestination.SHOW.name}/{titleId}",
             arguments = listOf(
                 navArgument("titleId"){
                     type = NavType.IntType
@@ -41,7 +41,7 @@ fun MainNavHost(
         ){  backStackEntry ->
 
             backStackEntry.arguments?.getInt("titleId")?.let{ titleId ->
-                MainContent(titleId = titleId)
+                MainShow(titleId = titleId)
             }
         }
     }
@@ -51,5 +51,5 @@ private fun navigateToContent(
     navController: NavHostController,
     titleId: Int
 ){
-    navController.navigate("${MainDestination.CONTENT.name}/$titleId")
+    navController.navigate("${MainDestination.SHOW.name}/$titleId")
 }
