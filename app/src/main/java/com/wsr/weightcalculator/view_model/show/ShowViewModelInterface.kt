@@ -8,4 +8,6 @@ import org.koin.core.component.KoinComponent
 abstract class ShowViewModelInterface : ViewModel(), KoinComponent{
 
     abstract val items: Flow<List<Item>>
+
+    abstract fun updateItems(items: List<Item>)
 }

@@ -2,6 +2,7 @@ package com.wsr.weightcalculator.view.ui.main.route.show
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -17,7 +18,9 @@ fun MainShow(titleId: Int){
 
     Column(modifier = Modifier) {
         for (item in items.value){
-            Text(text = "MainContents #${item.name}")
+            TextButton(onClick = { showViewModel.updateItems(listOf(item.copy(name = "Changed"))) }) {
+                Text(text = "MainContents #${item.name}")
+            }
         }
     }
 }

@@ -9,4 +9,6 @@ interface BaseRepositoryInterface {
     fun getAllTitles(): Flow<List<Title>>
 
     fun getItemsByTitleId(titleId: Int): Flow<List<Item>>
+
+    fun updateItems(items: List<Item>)
 }

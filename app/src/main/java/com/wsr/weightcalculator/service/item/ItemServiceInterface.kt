@@ -7,4 +7,6 @@ import org.koin.core.component.KoinComponent
 interface ItemServiceInterface : KoinComponent {
 
     fun getItemsByTitleId(titleId: Int): Flow<List<Item>>
+
+    fun updateItems(items: List<Item>)
 }
