@@ -1,6 +1,7 @@
 package com.wsr.weightcalculator.repository
 
 import com.wsr.weightcalculator.entity.Item
+import com.wsr.weightcalculator.entity.ItemTitle
 import com.wsr.weightcalculator.entity.Title
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,17 +17,29 @@ class TestRepository : BaseRepositoryInterface {
             Title(5, "Test5"),
         )
 
-        private val contents = listOf(
-            Item(1, 1, "Item1", 100),
-            Item(2, 1, "Item2", 200),
-            Item(3, 1, "Item3", 300),
-            Item(4, 1, "Item4", 400),
-            Item(5, 1, "Item5", 500),
-            Item(6, 2, "Item6", 600),
-            Item(7, 2, "Item7", 700),
-            Item(8, 2, "Item8", 800),
-            Item(9, 3, "Item9", 900),
-            Item(10, 3, "Item10", 20),
+        private val items = listOf(
+            Item(1, "Item1", 100),
+            Item(2, "Item2", 200),
+            Item(3, "Item3", 300),
+            Item(4, "Item4", 400),
+            Item(5, "Item5", 500),
+            Item(6, "Item6", 600),
+            Item(7, "Item7", 700),
+            Item(8, "Item8", 800),
+            Item(9, "Item9", 900),
+            Item(10, "Item10", 20),
+        )
+
+        private val itemTitle = listOf(
+            ItemTitle(1, 1, 1, 1),
+            ItemTitle(1, 1, 2, 2),
+            ItemTitle(1, 1, 3, 5),
+            ItemTitle(1, 1, 4, 4),
+            ItemTitle(1, 1, 5, 3),
+            ItemTitle(1, 2, 6, 1),
+            ItemTitle(1, 2, 7, 2),
+            ItemTitle(1, 2, 8, 3),
+            ItemTitle(1, 3, 9, 1),
         )
     }
 
@@ -34,7 +47,18 @@ class TestRepository : BaseRepositoryInterface {
         return flow { emit(titles) }
     }
 
-    override fun getContentsByTitleId(titleId: Int): Flow<List<Item>> {
-        return flow { emit(contents.filter { it.titleId == titleId }) }
+    override fun getItemsByTitleId(titleId: Int): Flow<List<Item>> {
+        return flow {
+
+            val result = mutableListOf<Item>()
+
+            itemTitle.filter { it.titleId == titleId }
+                .sortedBy { it.order }
+                .forEach { relatedItemTitle ->
+                    result.add(items.first { it.id == relatedItemTitle.itemId })
+                }
+
+            emit(result)
+        }
     }
 }

@@ -8,5 +8,5 @@ interface BaseRepositoryInterface {
 
     fun getAllTitles(): Flow<List<Title>>
 
-    fun getContentsByTitleId(titleId: Int): Flow<List<Item>>
+    fun getItemsByTitleId(titleId: Int): Flow<List<Item>>
 }

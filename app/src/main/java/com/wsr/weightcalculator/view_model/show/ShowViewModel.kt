@@ -9,5 +9,5 @@ class ShowViewModel(val titleId: Int) : ShowViewModelInterface(){
 
     private val itemService: ItemServiceInterface by inject()
 
-    override val items: Flow<List<Item>> = itemService.getContentsByTitleId(titleId)
+    override val items: Flow<List<Item>> = itemService.getItemsByTitleId(titleId)
 }

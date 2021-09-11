@@ -9,7 +9,7 @@ class RoomRepository : BaseRepositoryInterface{
         TODO("Not yet implemented")
     }
 
-    override fun getContentsByTitleId(titleId: Int): Flow<List<Item>> {
+    override fun getItemsByTitleId(titleId: Int): Flow<List<Item>> {
         TODO("Not yet implemented")
     }
 }

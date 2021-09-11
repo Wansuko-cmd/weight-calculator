@@ -6,8 +6,7 @@ import com.wsr.weightcalculator.view.ui.main.route.MainDestination
 
 @Composable
 fun MainTopBar(
-    currentScreen: MainDestination,
-    modifier: Modifier = Modifier
+    currentScreen: MainDestination
 ){
     when(currentScreen){
         MainDestination.INDEX -> MainIndexTopBar()

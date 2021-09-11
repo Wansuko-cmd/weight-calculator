@@ -9,7 +9,7 @@ class ItemService : ItemServiceInterface {
 
     private val baseRepository: BaseRepositoryInterface by inject()
 
-    override fun getContentsByTitleId(titleId: Int): Flow<List<Item>> {
-        return baseRepository.getContentsByTitleId(titleId)
+    override fun getItemsByTitleId(titleId: Int): Flow<List<Item>> {
+        return baseRepository.getItemsByTitleId(titleId)
     }
 }
