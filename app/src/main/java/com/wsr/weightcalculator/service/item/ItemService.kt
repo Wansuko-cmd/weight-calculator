@@ -11,7 +11,7 @@ class ItemService : ItemServiceInterface {
 
     private val baseRepository: BaseRepositoryInterface by inject()
 
-    override fun getItemsByTitleId(titleId: Int): Flow<List<Item>> {
+    override suspend fun getItemsByTitleId(titleId: Int): Flow<List<Item>> {
         return flow {
             baseRepository.getItemsByTitleId(titleId).collect { items ->
                 emit(items.sortedBy { it.order })
@@ -19,7 +19,7 @@ class ItemService : ItemServiceInterface {
         }
     }
 
-    override fun updateItems(items: List<Item>){
+    override suspend fun updateItems(items: List<Item>){
         baseRepository.updateItems(items)
     }
 }

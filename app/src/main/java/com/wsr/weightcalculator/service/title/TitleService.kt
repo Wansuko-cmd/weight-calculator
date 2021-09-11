@@ -9,7 +9,7 @@ class TitleService : TitleServiceInterface {
 
     private val baseRepository: BaseRepositoryInterface by inject()
 
-    override fun getAllTitles(): Flow<List<Title>> {
+    override suspend fun getAllTitles(): Flow<List<Title>> {
         return baseRepository.getAllTitles()
     }
 }

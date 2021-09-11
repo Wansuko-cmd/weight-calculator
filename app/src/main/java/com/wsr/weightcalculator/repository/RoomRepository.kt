@@ -5,15 +5,15 @@ import com.wsr.weightcalculator.entity.Title
 import kotlinx.coroutines.flow.Flow
 
 class RoomRepository : BaseRepositoryInterface{
-    override fun getAllTitles(): Flow<List<Title>> {
+    override suspend fun getAllTitles(): Flow<List<Title>> {
         TODO("Not yet implemented")
     }
 
-    override fun getItemsByTitleId(titleId: Int): Flow<List<Item>> {
+    override suspend fun getItemsByTitleId(titleId: Int): Flow<List<Item>> {
         TODO("Not yet implemented")
     }
 
-    override fun updateItems(items: List<Item>) {
+    override suspend fun updateItems(items: List<Item>) {
         TODO("Not yet implemented")
     }
 }

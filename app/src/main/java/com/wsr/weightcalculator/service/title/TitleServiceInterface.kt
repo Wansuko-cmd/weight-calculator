@@ -6,5 +6,5 @@ import org.koin.core.component.KoinComponent
 
 interface TitleServiceInterface : KoinComponent{
 
-    fun getAllTitles(): Flow<List<Title>>
+    suspend fun getAllTitles(): Flow<List<Title>>
 }

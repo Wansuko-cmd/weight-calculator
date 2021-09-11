@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface BaseRepositoryInterface {
 
-    fun getAllTitles(): Flow<List<Title>>
+    suspend fun getAllTitles(): Flow<List<Title>>
 
-    fun getItemsByTitleId(titleId: Int): Flow<List<Item>>
+    suspend fun getItemsByTitleId(titleId: Int): Flow<List<Item>>
 
-    fun updateItems(items: List<Item>)
+    suspend fun updateItems(items: List<Item>)
 }

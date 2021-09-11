@@ -22,6 +22,10 @@ class TestRepository : BaseRepositoryInterface {
             Item(3, 1, "Item3", 5, 300),
             Item(4, 1, "Item4", 4, 400),
             Item(5, 1, "Item5", 3, 500),
+            Item(10, 1, "Item10", 6, 200),
+            Item(11, 1, "Item11", 7, 300),
+            Item(12, 1, "Item12", 8, 400),
+            Item(13, 1, "Item13", 9, 500),
 
             Item(6, 2, "Item6", 1, 600),
             Item(7, 2, "Item7", 2, 700),
@@ -31,16 +35,16 @@ class TestRepository : BaseRepositoryInterface {
         )
     }
 
-    override fun getAllTitles(): Flow<List<Title>> =
+    override suspend fun getAllTitles(): Flow<List<Title>> =
         flow { emit(titlesData) }
 
 
 
-    override fun getItemsByTitleId(titleId: Int): Flow<List<Item>> =
+    override suspend fun getItemsByTitleId(titleId: Int): Flow<List<Item>> =
         flow { emit(itemsData.filter { it.titleId == titleId }) }
 
 
-    override fun updateItems(items: List<Item>) =
+    override suspend fun updateItems(items: List<Item>) =
         items.forEach { itemsData.updateFromId(it) }
 
 
