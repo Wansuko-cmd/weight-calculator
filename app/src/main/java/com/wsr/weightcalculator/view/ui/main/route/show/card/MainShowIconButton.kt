@@ -1,5 +1,6 @@
 package com.wsr.weightcalculator.view.ui.main.route.show.card
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -21,7 +22,7 @@ fun MainShowIconButton(
     ) {
         IconButton(
             onClick = onClick,
-            modifier = Modifier.padding(4.dp)
+            modifier = Modifier.padding(4.dp).fillMaxSize()
         ) {
             Icon(
                 painter = painter,

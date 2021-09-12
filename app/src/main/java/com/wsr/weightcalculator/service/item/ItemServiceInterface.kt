@@ -6,7 +6,9 @@ import org.koin.core.component.KoinComponent
 
 interface ItemServiceInterface : KoinComponent {
 
-    suspend fun getItemsByTitleId(titleId: Int): Flow<List<Item>>
+    suspend fun getItemsByTitleId(titleId: String): Flow<List<Item>>
+
+    suspend fun insertItem(titleId: String, name: String, amount: Int, order: Int): Item
 
     suspend fun updateItems(items: List<Item>)
 

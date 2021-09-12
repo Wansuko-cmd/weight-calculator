@@ -14,6 +14,8 @@ abstract class ShowViewModelInterface : ViewModel(), KoinComponent{
 
     abstract val result: MutableStateFlow<Int>
 
+    abstract fun insertItem(name: String, amount: Int): Job
+
     abstract fun updateItems(items: List<Item>): Job
 
     abstract fun updateStandardAmount(newStandardAmount: Int): Job

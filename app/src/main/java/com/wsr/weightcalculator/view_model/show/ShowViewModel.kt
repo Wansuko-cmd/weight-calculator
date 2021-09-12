@@ -1,16 +1,16 @@
 package com.wsr.weightcalculator.view_model.show
 
-import androidx.compose.runtime.toMutableStateMap
 import androidx.lifecycle.viewModelScope
 import com.wsr.weightcalculator.entity.Item
 import com.wsr.weightcalculator.service.item.ItemServiceInterface
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
-class ShowViewModel(val titleId: Int) : ShowViewModelInterface(){
+class ShowViewModel(val titleId: String) : ShowViewModelInterface(){
 
     private val itemService: ItemServiceInterface by inject()
 
@@ -32,6 +32,16 @@ class ShowViewModel(val titleId: Int) : ShowViewModelInterface(){
                 )
             }
         }
+    }
+
+    override fun insertItem(name: String, amount: Int): Job = viewModelScope.launch {
+
+        val newItem = async {
+            itemService.insertItem(titleId, name, amount, itemToNumber.value.size + 1)
+        }
+        val tempItemToNumber = itemToNumber.value
+        tempItemToNumber[newItem.await()] = 0
+        itemToNumber.emit(tempItemToNumber)
     }
 
     override fun updateItems(items: List<Item>): Job =

@@ -3,7 +3,7 @@ package com.wsr.weightcalculator.view.ui.main.route.show
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -15,10 +15,10 @@ import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 
 @Composable
-fun MainShow(titleId: Int){
+fun MainShow(titleId: String){
 
     val showViewModel = getViewModel<ShowViewModelInterface>{ parametersOf(titleId) }
-    val items = showViewModel.itemToNumber.collectAsState()
+    val itemToNumber = showViewModel.itemToNumber.collectAsState()
     val standardAmount = showViewModel.standardAmount.collectAsState()
     val result = showViewModel.result.collectAsState()
 
@@ -34,13 +34,19 @@ fun MainShow(titleId: Int){
             modifier = Modifier.weight(1f)
         ) {
             item {
-                for ((item, number) in items.value) {
+                for ((item, number) in itemToNumber.value) {
                     MainShowItemRow(
                         item = item,
                         number = number,
                         onValueChange = { showViewModel.updateNumberOfItem(item, it) }
                     )
                 }
+            }
+            item{
+                MainShowAddButton(
+                    onClick = { showViewModel.insertItem("TEST", 50) },
+                    modifier = Modifier.padding(12.dp)
+                )
             }
         }
 

@@ -11,7 +11,7 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun MainIndex(
-    onClickContent: (Int) -> Unit
+    onClickContent: (String) -> Unit
 ){
     val titleViewModel = getViewModel<IndexViewModelInterface>()
     val titles = titleViewModel.titles.collectAsState(initial = listOf())

@@ -35,12 +35,12 @@ fun MainNavHost(
             route = "${MainDestination.SHOW.name}/{titleId}",
             arguments = listOf(
                 navArgument("titleId"){
-                    type = NavType.IntType
+                    type = NavType.StringType
                 }
             )
         ){  backStackEntry ->
 
-            backStackEntry.arguments?.getInt("titleId")?.let{ titleId ->
+            backStackEntry.arguments?.getString("titleId")?.let{ titleId ->
                 MainShow(titleId = titleId)
             }
         }
@@ -49,7 +49,7 @@ fun MainNavHost(
 
 private fun navigateToContent(
     navController: NavHostController,
-    titleId: Int
+    titleId: String
 ){
     navController.navigate("${MainDestination.SHOW.name}/$titleId")
 }

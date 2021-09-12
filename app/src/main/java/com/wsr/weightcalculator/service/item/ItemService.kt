@@ -8,17 +8,29 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import org.koin.core.component.inject
+import java.util.*
 
 class ItemService : ItemServiceInterface {
 
     private val baseRepository: BaseRepositoryInterface by inject()
 
-    override suspend fun getItemsByTitleId(titleId: Int): Flow<List<Item>> {
+    override suspend fun getItemsByTitleId(titleId: String): Flow<List<Item>> {
         return flow {
             baseRepository.getItemsByTitleId(titleId).collect { items ->
                 emit(items.sortedBy { it.order })
             }
         }
+    }
+
+    override suspend fun insertItem(
+        titleId: String,
+        name: String,
+        amount: Int,
+        order: Int
+    ): Item {
+        val newItem = Item(UUID.randomUUID().toString(), titleId, name, amount, order)
+        baseRepository.insertItem(newItem)
+        return newItem
     }
 
     override suspend fun updateItems(items: List<Item>){
