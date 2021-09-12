@@ -29,7 +29,7 @@ fun MainShowItemRow(
         MainShowCountSetter(
             value = number,
             onValueChange = onValueChange,
-            onMinusClicked = { onValueChange(number - 1) },
+            onMinusClicked = { if(number > 0) onValueChange(number - 1) },
             onPlusClicked = { onValueChange(number + 1) }
         )
     }

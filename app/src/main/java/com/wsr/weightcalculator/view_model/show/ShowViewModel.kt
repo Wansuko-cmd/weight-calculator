@@ -25,7 +25,11 @@ class ShowViewModel(val titleId: Int) : ShowViewModelInterface(){
     init {
         viewModelScope.launch {
             itemService.getItemsByTitleId(titleId).collect {
-                itemToNumber.emit(it.map { item -> item to 0 }.toMutableStateMap())
+                itemToNumber.emit(
+                    it.sortedBy { item -> item.order }
+                        .associateWith { 0 }
+                        .toMutableMap()
+                )
             }
         }
     }
