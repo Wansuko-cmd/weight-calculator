@@ -2,6 +2,7 @@ package com.wsr.weightcalculator.view.ui.main.route.show.card
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,8 +17,14 @@ fun MainShowNameCard(
 ){
     Card(modifier = modifier) {
         Column(modifier = Modifier.padding(6.dp)) {
-            Text(text = item.name)
-            Text(text = item.amount.toString())
+            Text(
+                text = item.name,
+                modifier = Modifier.weight(1f)
+            )
+            Text(
+                text = item.amount.toString(),
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 }

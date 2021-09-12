@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.wsr.weightcalculator.view.ui.main.route.show.card.MainShowItemRow
 import com.wsr.weightcalculator.view_model.show.ShowViewModelInterface
 import org.koin.androidx.compose.getViewModel
@@ -37,8 +38,7 @@ fun MainShow(titleId: Int){
                     MainShowItemRow(
                         item = item,
                         number = number,
-                        onMinusClicked = { showViewModel.updateNumberOfItem(item, it) },
-                        onPlusClicked = { showViewModel.updateNumberOfItem(item, it) }
+                        onValueChange = { showViewModel.updateNumberOfItem(item, it) }
                     )
                 }
             }

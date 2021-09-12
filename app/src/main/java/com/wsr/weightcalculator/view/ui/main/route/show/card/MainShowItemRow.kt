@@ -10,8 +10,7 @@ import com.wsr.weightcalculator.entity.Item
 
 @Composable
 fun MainShowItemRow(
-    onMinusClicked: (Int) -> Unit,
-    onPlusClicked: (Int) -> Unit,
+    onValueChange: (Int) -> Unit,
     item: Item,
     number: Int
 ){
@@ -22,23 +21,16 @@ fun MainShowItemRow(
 
         MainShowNameCard(
             item = item,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f).height(110.dp)
         )
 
         Spacer(modifier = Modifier.width(6.dp))
 
-        MainShowIconButton(
-            painter = painterResource(id = R.drawable.ic_baseline_remove_24),
-            contentDescription = null,
-            onClick = { onMinusClicked(number - 1) }
-        )
-
-        Spacer(modifier = Modifier.width(6.dp))
-
-        MainShowIconButton(
-            painter = painterResource(id = R.drawable.ic_baseline_add_24),
-            contentDescription = null,
-            onClick = { onPlusClicked(number + 1) }
+        MainShowCountSetter(
+            value = number,
+            onValueChange = onValueChange,
+            onMinusClicked = { onValueChange(number - 1) },
+            onPlusClicked = { onValueChange(number + 1) }
         )
     }
 }
