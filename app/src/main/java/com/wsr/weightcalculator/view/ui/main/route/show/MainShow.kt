@@ -17,7 +17,7 @@ import org.koin.core.parameter.parametersOf
 fun MainShow(titleId: Int){
 
     val showViewModel = getViewModel<ShowViewModelInterface>{ parametersOf(titleId) }
-    val items = showViewModel.items.collectAsState()
+    val items = showViewModel.itemToNumber.collectAsState()
     val standardAmount = showViewModel.standardAmount.collectAsState()
     val result = showViewModel.result.collectAsState()
 
@@ -33,11 +33,12 @@ fun MainShow(titleId: Int){
             modifier = Modifier.weight(1f)
         ) {
             item {
-                for (item in items.value) {
+                for ((item, number) in items.value) {
                     MainShowItemRow(
                         item = item,
-                        onMinusClicked = { showViewModel.minusNumberOfItem(item) },
-                        onPlusClicked = { showViewModel.plusNumberOfItem(item) }
+                        number = number,
+                        onMinusClicked = { showViewModel.updateNumberOfItem(item, it) },
+                        onPlusClicked = { showViewModel.updateNumberOfItem(item, it) }
                     )
                 }
             }

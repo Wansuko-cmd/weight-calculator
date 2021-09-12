@@ -8,7 +8,7 @@ import org.koin.core.component.KoinComponent
 
 abstract class ShowViewModelInterface : ViewModel(), KoinComponent{
 
-    abstract val items: MutableStateFlow<List<Item>>
+    abstract val itemToNumber: MutableStateFlow<MutableMap<Item, Int>>
 
     abstract val standardAmount: MutableStateFlow<Int>
 
@@ -18,7 +18,5 @@ abstract class ShowViewModelInterface : ViewModel(), KoinComponent{
 
     abstract fun updateStandardAmount(newStandardAmount: Int): Job
 
-    abstract fun plusNumberOfItem(item: Item): Job
-
-    abstract fun minusNumberOfItem(item: Item): Job
+    abstract fun updateNumberOfItem(item: Item, number: Int): Job
 }

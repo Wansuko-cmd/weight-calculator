@@ -14,13 +14,10 @@ class ShowViewModel(val titleId: Int) : ShowViewModelInterface(){
 
     private val itemService: ItemServiceInterface by inject()
 
-    private val _items = MutableStateFlow<List<Item>>(listOf())
-    override val items: MutableStateFlow<List<Item>> get() = _items
+    override var itemToNumber = MutableStateFlow<MutableMap<Item, Int>>(mutableMapOf())
 
     private val _standardAmount = MutableStateFlow(0)
     override val standardAmount: MutableStateFlow<Int> get() = _standardAmount
-
-    private var itemToNumber: MutableMap<Item, Int> = mutableMapOf()
 
     private val _result = MutableStateFlow(0)
     override val result: MutableStateFlow<Int> get() = _result
@@ -28,9 +25,8 @@ class ShowViewModel(val titleId: Int) : ShowViewModelInterface(){
     init {
         viewModelScope.launch {
             itemService.getItemsByTitleId(titleId).collect {
-                _items.emit(it)
+                itemToNumber.emit(it.map { item -> item to 0 }.toMutableStateMap())
             }
-            items.collect{ itemToNumber = it.map { item -> item to 0 }.toMutableStateMap() }
         }
     }
 
@@ -39,16 +35,13 @@ class ShowViewModel(val titleId: Int) : ShowViewModelInterface(){
 
     override fun updateStandardAmount(newStandardAmount: Int): Job = viewModelScope.launch {
         _standardAmount.emit(newStandardAmount)
-        _result.emit(itemService.getResult(newStandardAmount, itemToNumber))
+        _result.emit(itemService.getResult(newStandardAmount, itemToNumber.value))
     }
 
-    override fun plusNumberOfItem(item: Item): Job = viewModelScope.launch {
-        itemToNumber[item] = itemToNumber[item]!!.plus(1)
-        _result.emit(itemService.getResult(standardAmount.value, itemToNumber))
-    }
-
-    override fun minusNumberOfItem(item: Item): Job = viewModelScope.launch {
-        itemToNumber[item] = itemToNumber[item]!!.minus(1)
-        _result.emit(itemService.getResult(standardAmount.value, itemToNumber))
+    override fun updateNumberOfItem(item: Item, number: Int): Job = viewModelScope.launch {
+        val tempItemToNumber = itemToNumber.value
+        tempItemToNumber[item] = number
+        itemToNumber.emit(tempItemToNumber)
+        _result.emit(itemService.getResult(standardAmount.value, itemToNumber.value))
     }
 }

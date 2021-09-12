@@ -1,21 +1,19 @@
 package com.wsr.weightcalculator.view.ui.main.route.show.card
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.wsr.weightcalculator.R
 import com.wsr.weightcalculator.entity.Item
-import com.wsr.weightcalculator.view.ui.main.route.show.card.MainShowIconButton
 
 @Composable
 fun MainShowItemRow(
-    onMinusClicked: () -> Unit,
-    onPlusClicked: () -> Unit,
-    item: Item
+    onMinusClicked: (Int) -> Unit,
+    onPlusClicked: (Int) -> Unit,
+    item: Item,
+    number: Int
 ){
 
     Row(
@@ -32,7 +30,7 @@ fun MainShowItemRow(
         MainShowIconButton(
             painter = painterResource(id = R.drawable.ic_baseline_remove_24),
             contentDescription = null,
-            onClick = onMinusClicked
+            onClick = { onMinusClicked(number - 1) }
         )
 
         Spacer(modifier = Modifier.width(6.dp))
@@ -40,7 +38,7 @@ fun MainShowItemRow(
         MainShowIconButton(
             painter = painterResource(id = R.drawable.ic_baseline_add_24),
             contentDescription = null,
-            onClick = onPlusClicked
+            onClick = { onPlusClicked(number + 1) }
         )
     }
 }
