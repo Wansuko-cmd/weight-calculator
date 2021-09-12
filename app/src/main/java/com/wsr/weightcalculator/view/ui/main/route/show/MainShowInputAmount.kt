@@ -8,12 +8,13 @@ import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
 fun MainShowInputAmount(
+    value: Int,
     onValueChange: (Int) -> Unit,
     modifier: Modifier = Modifier
 ){
     TextField(
-        value = "",
-        onValueChange = { onValueChange(it.toInt()) },
+        value = value.toString(),
+        onValueChange = { onValueChange(if(it.isNotBlank()) it.toInt() else 0) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         modifier = modifier
     )

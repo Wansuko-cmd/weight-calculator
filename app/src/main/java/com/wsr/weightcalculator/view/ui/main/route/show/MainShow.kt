@@ -17,27 +17,34 @@ import org.koin.core.parameter.parametersOf
 fun MainShow(titleId: Int){
 
     val showViewModel = getViewModel<ShowViewModelInterface>{ parametersOf(titleId) }
-    val items = showViewModel.items.collectAsState(initial = listOf())
+    val items = showViewModel.items.collectAsState()
+    val standardAmount = showViewModel.standardAmount.collectAsState()
+    val result = showViewModel.result.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
 
         MainShowInputAmount(
-            onValueChange = {},
+            value = standardAmount.value,
+            onValueChange = { showViewModel.updateStandardAmount(it) },
             modifier = Modifier.fillMaxWidth()
         )
 
         LazyColumn(
             modifier = Modifier.weight(1f)
         ) {
-            item{
-                for (item in items.value){
-                    MainShowItemRow(item = item)
+            item {
+                for (item in items.value) {
+                    MainShowItemRow(
+                        item = item,
+                        onMinusClicked = { showViewModel.minusNumberOfItem(item) },
+                        onPlusClicked = { showViewModel.plusNumberOfItem(item) }
+                    )
                 }
             }
         }
 
         MainShowResultScreen(
-            result = "RESULT",
+            result = result.value.toString(),
             modifier = Modifier.fillMaxWidth()
         )
     }

@@ -12,7 +12,11 @@ import com.wsr.weightcalculator.entity.Item
 import com.wsr.weightcalculator.view.ui.main.route.show.card.MainShowIconButton
 
 @Composable
-fun MainShowItemRow(item: Item){
+fun MainShowItemRow(
+    onMinusClicked: () -> Unit,
+    onPlusClicked: () -> Unit,
+    item: Item
+){
 
     Row(
         modifier = Modifier.padding(12.dp)
@@ -28,7 +32,7 @@ fun MainShowItemRow(item: Item){
         MainShowIconButton(
             painter = painterResource(id = R.drawable.ic_baseline_remove_24),
             contentDescription = null,
-            onClick = {}
+            onClick = onMinusClicked
         )
 
         Spacer(modifier = Modifier.width(6.dp))
@@ -36,7 +40,7 @@ fun MainShowItemRow(item: Item){
         MainShowIconButton(
             painter = painterResource(id = R.drawable.ic_baseline_add_24),
             contentDescription = null,
-            onClick = {}
+            onClick = onPlusClicked
         )
     }
 }

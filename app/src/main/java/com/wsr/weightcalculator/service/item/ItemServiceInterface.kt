@@ -9,4 +9,6 @@ interface ItemServiceInterface : KoinComponent {
     suspend fun getItemsByTitleId(titleId: Int): Flow<List<Item>>
 
     suspend fun updateItems(items: List<Item>)
+
+    suspend fun getResult(standardAmount: Int, itemToNumber: Map<Item, Int>): Int
 }
