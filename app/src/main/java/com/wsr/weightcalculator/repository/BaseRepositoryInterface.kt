@@ -8,6 +8,8 @@ interface BaseRepositoryInterface {
 
     suspend fun getAllTitles(): Flow<List<Title>>
 
+    suspend fun insertTitle(title: Title)
+
     suspend fun getItemsByTitleId(titleId: String): Flow<List<Item>>
 
     suspend fun insertItem(item: Item)

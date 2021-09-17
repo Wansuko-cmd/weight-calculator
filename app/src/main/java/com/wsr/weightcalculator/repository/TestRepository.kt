@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flow
 class TestRepository : BaseRepositoryInterface {
 
     companion object{
-        private val titlesData = listOf(
+        private val titlesData = mutableListOf(
             Title("1", "Test1"),
             Title("2", "Test2"),
             Title("3", "Test3"),
@@ -38,6 +38,9 @@ class TestRepository : BaseRepositoryInterface {
     override suspend fun getAllTitles(): Flow<List<Title>> =
         flow { emit(titlesData) }
 
+    override suspend fun insertTitle(title: Title) {
+        titlesData.add(title)
+    }
 
 
     override suspend fun getItemsByTitleId(titleId: String): Flow<List<Item>> =

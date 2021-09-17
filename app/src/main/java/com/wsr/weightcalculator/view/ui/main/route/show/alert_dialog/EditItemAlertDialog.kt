@@ -23,7 +23,7 @@ fun EditItemAlertDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(text = "") },
+        title = { Text(text = "アイテム") },
         text = {
                Column {
                    TextField(

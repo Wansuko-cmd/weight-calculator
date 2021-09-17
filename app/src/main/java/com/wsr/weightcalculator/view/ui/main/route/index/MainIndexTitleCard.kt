@@ -23,7 +23,6 @@ fun MainIndexTitleCard(title: String, onClick: () -> Unit){
             modifier = Modifier.padding(12.dp)
         ) {
             Text(text = title)
-            Text(text = "BODY")
         }
     }
 }

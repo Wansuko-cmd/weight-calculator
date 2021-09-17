@@ -9,6 +9,10 @@ class RoomRepository : BaseRepositoryInterface{
         TODO("Not yet implemented")
     }
 
+    override suspend fun insertTitle(title: Title) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getItemsByTitleId(titleId: String): Flow<List<Item>> {
         TODO("Not yet implemented")
     }

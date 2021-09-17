@@ -4,6 +4,7 @@ import com.wsr.weightcalculator.entity.Title
 import com.wsr.weightcalculator.repository.BaseRepositoryInterface
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.component.inject
+import java.util.*
 
 class TitleService : TitleServiceInterface {
 
@@ -11,5 +12,11 @@ class TitleService : TitleServiceInterface {
 
     override suspend fun getAllTitles(): Flow<List<Title>> {
         return baseRepository.getAllTitles()
+    }
+
+    override suspend fun insertTitle(name: String): Title {
+        val newTitle = Title(UUID.randomUUID().toString(), name)
+        baseRepository.insertTitle(newTitle)
+        return newTitle
     }
 }
