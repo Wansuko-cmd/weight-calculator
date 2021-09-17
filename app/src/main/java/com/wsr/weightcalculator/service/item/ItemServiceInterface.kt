@@ -10,7 +10,7 @@ interface ItemServiceInterface : KoinComponent {
 
     suspend fun insertItem(titleId: String, name: String, amount: Int, order: Int): Item
 
-    suspend fun updateItems(items: List<Item>)
+    suspend fun updateItems(item: Item)
 
     suspend fun getResult(standardAmount: Int, itemToNumber: Map<Item, Int>): Int
 }

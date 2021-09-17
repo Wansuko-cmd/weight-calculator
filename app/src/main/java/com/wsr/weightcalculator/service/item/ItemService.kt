@@ -33,8 +33,8 @@ class ItemService : ItemServiceInterface {
         return newItem
     }
 
-    override suspend fun updateItems(items: List<Item>){
-        baseRepository.updateItems(items)
+    override suspend fun updateItems(item: Item){
+        baseRepository.updateItem(item)
     }
 
     override suspend fun getResult(

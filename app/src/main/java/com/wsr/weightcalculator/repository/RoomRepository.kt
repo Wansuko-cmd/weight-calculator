@@ -17,7 +17,7 @@ class RoomRepository : BaseRepositoryInterface{
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateItems(items: List<Item>) {
+    override suspend fun updateItem(item: Item) {
         TODO("Not yet implemented")
     }
 }

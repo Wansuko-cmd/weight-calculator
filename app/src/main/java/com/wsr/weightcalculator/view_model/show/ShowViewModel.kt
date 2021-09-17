@@ -6,6 +6,7 @@ import com.wsr.weightcalculator.service.item.ItemServiceInterface
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
@@ -14,18 +15,19 @@ class ShowViewModel(val titleId: String) : ShowViewModelInterface(){
 
     private val itemService: ItemServiceInterface by inject()
 
-    override var itemToNumber = MutableStateFlow<MutableMap<Item, Int>>(mutableMapOf())
+    private var _itemToNumber = MutableStateFlow<Map<Item, Int>>(mutableMapOf())
+    override val itemToNumber get() = _itemToNumber
 
     private val _standardAmount = MutableStateFlow(0)
-    override val standardAmount: MutableStateFlow<Int> get() = _standardAmount
+    override val standardAmount get() = _standardAmount
 
     private val _result = MutableStateFlow(0)
-    override val result: MutableStateFlow<Int> get() = _result
+    override val result get() = _result
 
     init {
         viewModelScope.launch {
             itemService.getItemsByTitleId(titleId).collect {
-                itemToNumber.emit(
+                _itemToNumber.emit(
                     it.sortedBy { item -> item.order }
                         .associateWith { 0 }
                         .toMutableMap()
@@ -37,25 +39,32 @@ class ShowViewModel(val titleId: String) : ShowViewModelInterface(){
     override fun insertItem(name: String, amount: Int): Job = viewModelScope.launch {
 
         val newItem = async {
-            itemService.insertItem(titleId, name, amount, itemToNumber.value.size + 1)
+            itemService.insertItem(titleId, name, _itemToNumber.value.size + 1, amount)
         }
-        val tempItemToNumber = itemToNumber.value
-        tempItemToNumber[newItem.await()] = 0
-        itemToNumber.emit(tempItemToNumber)
+        _itemToNumber.emit(_itemToNumber.value + mapOf(newItem.await() to 0))
     }
 
-    override fun updateItems(items: List<Item>): Job =
-        viewModelScope.launch { itemService.updateItems(items) }
+    override fun updateItem(item: Item): Job = viewModelScope.launch {
+        itemService.updateItems(item)
+        _itemToNumber.emit(
+            _itemToNumber.value
+                .map { if(it.key.id == item.id) item to it.value else it.key to it.value }
+                .toMap()
+        )
+        _result.emit(itemService.getResult(standardAmount.value, _itemToNumber.value))
+    }
 
     override fun updateStandardAmount(newStandardAmount: Int): Job = viewModelScope.launch {
         _standardAmount.emit(newStandardAmount)
-        _result.emit(itemService.getResult(newStandardAmount, itemToNumber.value))
+        _result.emit(itemService.getResult(newStandardAmount, _itemToNumber.value))
     }
 
     override fun updateNumberOfItem(item: Item, number: Int): Job = viewModelScope.launch {
-        val tempItemToNumber = itemToNumber.value
-        tempItemToNumber[item] = number
-        itemToNumber.emit(tempItemToNumber)
-        _result.emit(itemService.getResult(standardAmount.value, itemToNumber.value))
+        _itemToNumber.emit(
+            _itemToNumber.value
+                .map { if(it.key == item) it.key to number else it.key to it.value }
+                .toMap()
+        )
+        _result.emit(itemService.getResult(standardAmount.value, _itemToNumber.value))
     }
 }

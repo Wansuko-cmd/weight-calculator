@@ -12,5 +12,5 @@ interface BaseRepositoryInterface {
 
     suspend fun insertItem(item: Item)
 
-    suspend fun updateItems(items: List<Item>)
+    suspend fun updateItem(item: Item)
 }

@@ -48,8 +48,8 @@ class TestRepository : BaseRepositoryInterface {
     }
 
 
-    override suspend fun updateItems(items: List<Item>) =
-        items.forEach { itemsData.updateFromId(it) }
+    override suspend fun updateItem(item: Item) =
+        itemsData.updateFromId(item)
 
 
     private inline fun <reified T> MutableList<T>.updateFromId(value: T) {
